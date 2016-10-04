@@ -44,8 +44,16 @@ function main() {
   var params = {
     name: process.argv[2] || 'world'
   };
+
   console.log('calling sayHello with params:', params, '...');
   client.sayHello(params, function(err, response) {
+    if (err) throw err;
+    console.log('=> Greeting:', response.message);
+  });
+
+  params.name = 'you';
+  console.log('calling sayHelloAgain with params:', params, '...');
+  client.sayHelloAgain(params, function(err, response) {
     if (err) throw err;
     console.log('=> Greeting:', response.message);
   });

@@ -39,12 +39,18 @@ var grpc = require('grpc');
 var hello_proto = grpc.load(PROTO_PATH).helloworld;
 
 /**
- * Implements the SayHello RPC method.
+ * Implements the SayHello RPC methods.
  */
-function sayHello(call, callback) {
-  console.log('received call to sayHello', call.request);
-  callback(null, {message: 'Hello ' + call.request.name});
-}
+var methods = {
+  sayHello: function (call, callback) {
+    console.log('received call to sayHello', call.request);
+    callback(null, {message: 'Hello ' + call.request.name});
+  },
+  sayHelloAgain: function (call, callback) {
+    console.log('received call to sayHelloAgain', call.request);
+    callback(null, {message: 'Hello again, ' + call.request.name});
+  }
+};
 
 /**
  * Starts an RPC server that receives requests for the Greeter service at the
@@ -52,7 +58,7 @@ function sayHello(call, callback) {
  */
 function main() {
   var server = new grpc.Server();
-  server.addProtoService(hello_proto.Greeter.service, {sayHello: sayHello});
+  server.addProtoService(hello_proto.Greeter.service, methods);
   server.bind(HOST, grpc.ServerCredentials.createInsecure());
   server.start();
   console.log('server running on', HOST);

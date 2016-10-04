@@ -17,9 +17,6 @@ function wrapMethod(fct){
 }
 
 var methods = {
-  sayHello: wrapMethod(function sayHello (call, callback) {
-    callback(null, {message: 'Hello ' + call.request.name});
-  }),
   authToGoogleCalendar: wrapMethod(function authToGoogleCalendar(call, callback) {
     callback(null, { url: 'http://localhost' }); // TODO
   }),
@@ -27,7 +24,7 @@ var methods = {
     gcal.listEvents(globalAuth, function(err, events) {
       if (err) console.error(err);
       var translated = events.map(mappings.eventFromGcal);
-      console.log('=> events:', translated);
+      //console.log('=> events:', translated);
       callback(err, { events: translated });    
     })
   }),
@@ -60,7 +57,7 @@ gcal.init(function(err, auth) {
     console.log('Error loading client secret file: ' + err);
   } else {
     globalAuth = auth;
-    console.log('AUTH:', auth);
+    //console.log('AUTH:', auth);
     startSever();
   }
 });

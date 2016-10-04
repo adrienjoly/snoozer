@@ -4,8 +4,7 @@ option objc_class_prefix = "SNZ";
 
 package snoozer;
 
-// =======
-// The snoozer service definition.
+// messages
 
 message Null {
 }
@@ -34,23 +33,10 @@ message SwipeResponse {
   Event event = 1;
 }
 
-// =======
-// The greeting service definition.
+// API definition
 
 service Snoozer {
-  // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
   rpc AuthToGoogleCalendar (Null) returns (AuthUrl) {}
   rpc ListEvents (Null) returns (Events) {}
   rpc SwipeEvent (SwipeRequest) returns (SwipeResponse) {}
-}
-
-// request message
-message HelloRequest {
-  string name = 1;
-}
-
-// response message
-message HelloReply {
-  string message = 1;
 }

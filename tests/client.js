@@ -8,20 +8,6 @@ function main() {
   console.log('host:', HOST);
   var client = new protocol.Snoozer(HOST, grpc.credentials.createInsecure());
 
-  for (var i in client) {
-    console.log('- found method:', i);
-  }
-
-  var params = {
-    name: process.argv[2] || 'world'
-  };
-
-  console.log('calling sayHello with params:', params, '...');
-  client.sayHello(params, function(err, response) {
-    if (err) throw err;
-    console.log('=> Greeting:', response.message);
-  });
-
   console.log('calling listEvents ...');
   client.listEvents({}, function(err, response) {
     if (err) throw err;

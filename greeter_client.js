@@ -7,6 +7,11 @@ var hello_proto = grpc.load(PROTO_PATH).helloworld;
 function main() {
   console.log('host:', HOST);
   var client = new hello_proto.Greeter(HOST, grpc.credentials.createInsecure());
+
+  for (var i in client) {
+    console.log('- found method:', i);
+  }
+
   var params = {
     name: process.argv[2] || 'world'
   };
@@ -15,6 +20,12 @@ function main() {
   client.sayHello(params, function(err, response) {
     if (err) throw err;
     console.log('=> Greeting:', response.message);
+  });
+
+  console.log('calling authToGoogleCalendar ...');
+  client.authToGoogleCalendar({}, function(err, response) {
+    if (err) throw err;
+    console.log('=> response:', response.url);
   });
 }
 

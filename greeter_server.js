@@ -15,6 +15,9 @@ var methods = {
   sayHello: wrapMethod(function sayHello (call, callback) {
     callback(null, {message: 'Hello ' + call.request.name});
   }),
+  authToGoogleCalendar: wrapMethod(function authToGoogleCalendar(call, callback) {
+    callback(null, { url: 'http://localhost' });    
+  }),
 };
 
 // Starts an RPC server that receives requests for the Greeter service

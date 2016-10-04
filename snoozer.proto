@@ -7,18 +7,31 @@ option objc_class_prefix = "HLW";
 
 package helloworld;
 
+// =======
+// The snoozer service definition.
+
+message Null {
+}
+
+message AuthUrl {
+  string url = 1;
+}
+
+// =======
 // The greeting service definition.
+
 service Greeter {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc AuthToGoogleCalendar (Null) returns (AuthUrl) {}
 }
 
-// The request message containing the user's name.
+// request message
 message HelloRequest {
   string name = 1;
 }
 
-// The response message containing the greetings
+// response message
 message HelloReply {
   string message = 1;
 }

@@ -2,6 +2,7 @@ var PROTO_PATH = __dirname + '/snoozer.proto';
 var HOST = '0.0.0.0:50051';
 
 var gcal = require('./gcal');
+var mappings = require('./gcal-mappings');
 var grpc = require('grpc');
 var protocol = grpc.load(PROTO_PATH).snoozer;
 
@@ -24,10 +25,9 @@ var methods = {
   listEvents: wrapMethod(function listEvents(call, callback) {
     gcal.listEvents(globalAuth, function(err, events) {
       if (err) console.error(err);
-      console.log('=> events:', events.map((event) => event.summary));
-      callback(err, {
-        events: events.map((event) => event.summary)
-      });    
+      var translated = events.map(mappings.eventFromGcal);
+      console.log('=> events:', translated);
+      callback(err, { events: translated });    
     })
   })
 };

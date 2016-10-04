@@ -14,8 +14,12 @@ message AuthUrl {
   string url = 1;
 }
 
+message Event {
+  string name = 1;
+}
+
 message Events {
-  repeated string events = 1;
+  repeated Event events = 1;
 }
 
 // =======

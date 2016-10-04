@@ -26,6 +26,14 @@ message Events {
   repeated Event events = 1;
 }
 
+message SwipeRequest {
+  string eventId = 1;
+}
+
+message SwipeResponse {
+  Event event = 1;
+}
+
 // =======
 // The greeting service definition.
 
@@ -34,6 +42,7 @@ service Snoozer {
   rpc SayHello (HelloRequest) returns (HelloReply) {}
   rpc AuthToGoogleCalendar (Null) returns (AuthUrl) {}
   rpc ListEvents (Null) returns (Events) {}
+  rpc SwipeEvent (SwipeRequest) returns (SwipeResponse) {}
 }
 
 // request message

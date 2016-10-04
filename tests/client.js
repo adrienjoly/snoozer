@@ -32,7 +32,11 @@ function main() {
   console.log('calling listEvents ...');
   client.listEvents({}, function(err, response) {
     if (err) throw err;
-    console.log('=> response:', response);
+    console.log('=> events:', response.events);
+    var lastEventId = response.events.pop().id;
+    client.swipeEvent({ eventId: lastEventId }, function(err, response) {
+      console.log('swiped last event =>', arguments);
+    })
   });
 }
 

@@ -29,7 +29,18 @@ var methods = {
       console.log('=> events:', translated);
       callback(err, { events: translated });    
     })
-  })
+  }),
+  swipeEvent: wrapMethod(function swipeEvent(call, callback) {
+    gcal.getEvent(globalAuth, call.request.eventId, function(err, initialEvent) {
+      if (err) console.error(err);
+      var finalEvent = Object.assign(mappings.eventFromGcal(initialEvent), {
+        start: '2016-10-05T20:00:00+02:00', // TODO: really find a free slot and put it here
+        end: '2016-10-05T23:00:00+02:00',
+      });
+      // TODO: update calendar event
+      callback(err, { event: finalEvent });
+    });
+  }),
 };
 
 function startSever() {

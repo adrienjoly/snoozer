@@ -7,14 +7,13 @@ gcal.init(function(err, auth) {
   } else {
     gcal.listEvents(auth, function(err, events) {
       console.log(err || ('displaying ' + events.length + ' events:'));
-      /*
-      for (var i = 0; i < events.length; i++) {
-        var event = events[i];
-        var start = event.start.dateTime || event.start.date;
-        console.log('%s - %s', start, event.summary);
-      }
-      */
-      console.log(events.map(mappings.eventFromGcal));
+      var translatedEvents = events.map(mappings.eventFromGcal);
+      console.log('translated events:', translatedEvents);
+      var eventId = translatedEvents[0].id;
+      console.log('first event id:', eventId);
+      gcal.getEvent(auth, eventId, function() {
+        console.log('=>', arguments);
+      });
     });
   }
 });

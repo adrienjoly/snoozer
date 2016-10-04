@@ -1,7 +1,7 @@
 # Snoozer
 
 This codebase was written thanks to the following resources:
-- [gRPC Basics: Node.js]:http://www.grpc.io/docs/tutorials/basic/node.html
+- [gRPC Basics: Node.js](http://www.grpc.io/docs/tutorials/basic/node.html)
 - [Google Calendar Quickstart with Node.js](https://developers.google.com/google-apps/calendar/quickstart/nodejs)
 
 ## Prerequisites

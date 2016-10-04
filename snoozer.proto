@@ -17,6 +17,10 @@ message AuthUrl {
   string url = 1;
 }
 
+message Events {
+  repeated string events = 1;
+}
+
 // =======
 // The greeting service definition.
 
@@ -24,6 +28,7 @@ service Greeter {
   // Sends a greeting
   rpc SayHello (HelloRequest) returns (HelloReply) {}
   rpc AuthToGoogleCalendar (Null) returns (AuthUrl) {}
+  rpc ListEvents (Null) returns (Events) {}
 }
 
 // request message

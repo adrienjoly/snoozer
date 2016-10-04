@@ -21,11 +21,18 @@ function main() {
     if (err) throw err;
     console.log('=> Greeting:', response.message);
   });
-
+  /*
   console.log('calling authToGoogleCalendar ...');
   client.authToGoogleCalendar({}, function(err, response) {
     if (err) throw err;
     console.log('=> response:', response.url);
+  });
+  */
+
+  console.log('calling listEvents ...');
+  client.listEvents({}, function(err, response) {
+    if (err) throw err;
+    console.log('=> response:', response);
   });
 }
 

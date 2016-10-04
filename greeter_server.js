@@ -1,8 +1,11 @@
 var PROTO_PATH = __dirname + '/snoozer.proto';
 var HOST = '0.0.0.0:50051';
 
+var gcal = require('./gcal');
 var grpc = require('grpc');
 var hello_proto = grpc.load(PROTO_PATH).helloworld;
+
+var globalAuth;
 
 function wrapMethod(fct){
   return function(call, callback) {
@@ -18,10 +21,19 @@ var methods = {
   authToGoogleCalendar: wrapMethod(function authToGoogleCalendar(call, callback) {
     callback(null, { url: 'http://localhost' });    
   }),
+  listEvents: wrapMethod(function listEvents(call, callback) {
+    gcal.listEvents(globalAuth, function(err, events) {
+      if (err) console.error(err);
+      console.log('=> events:', events.map((event) => event.summary));
+      callback(err, {
+        events: events.map((event) => event.summary)
+      });    
+    })
+  })
 };
 
-// Starts an RPC server that receives requests for the Greeter service
-function main() {
+function startSever() {
+  console.log('start RPC server...');
   var server = new grpc.Server();
   server.addProtoService(hello_proto.Greeter.service, methods);
   server.bind(HOST, grpc.ServerCredentials.createInsecure());
@@ -29,4 +41,12 @@ function main() {
   console.log('server running on', HOST);
 }
 
-main();
+console.log('init google calendar...');
+gcal.init(function(err, auth) {
+  if (err) {
+    console.log('Error loading client secret file: ' + err);
+  } else {
+    globalAuth = auth;
+    startSever();
+  }
+});

@@ -33,6 +33,8 @@
 
 var PROTO_PATH = __dirname + '/helloworld.proto';
 
+var HOST = '0.0.0.0:50051';
+
 var grpc = require('grpc');
 var hello_proto = grpc.load(PROTO_PATH).helloworld;
 
@@ -40,6 +42,7 @@ var hello_proto = grpc.load(PROTO_PATH).helloworld;
  * Implements the SayHello RPC method.
  */
 function sayHello(call, callback) {
+  console.log('received call to sayHello', call.request);
   callback(null, {message: 'Hello ' + call.request.name});
 }
 
@@ -50,8 +53,9 @@ function sayHello(call, callback) {
 function main() {
   var server = new grpc.Server();
   server.addProtoService(hello_proto.Greeter.service, {sayHello: sayHello});
-  server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
+  server.bind(HOST, grpc.ServerCredentials.createInsecure());
   server.start();
+  console.log('server running on', HOST);
 }
 
 main();

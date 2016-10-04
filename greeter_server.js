@@ -1,19 +1,13 @@
-var PROTO_PATH = __dirname + '/helloworld.proto';
+var PROTO_PATH = __dirname + '/snoozer.proto';
 var HOST = '0.0.0.0:50051';
 
 var grpc = require('grpc');
 var hello_proto = grpc.load(PROTO_PATH).helloworld;
 
-// gcal init: https://developers.google.com/google-apps/calendar/quickstart/nodejs
-
 var methods = {
   sayHello: function (call, callback) {
     console.log('received call to sayHello', call.request);
     callback(null, {message: 'Hello ' + call.request.name});
-  },
-  sayHelloAgain: function (call, callback) {
-    console.log('received call to sayHelloAgain', call.request);
-    callback(null, {message: 'Hello again, ' + call.request.name});
   }
 };
 

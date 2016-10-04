@@ -1,8 +1,8 @@
 var PROTO_PATH = __dirname + '/snoozer.proto';
 var HOST = '0.0.0.0:50051';
 
-var gcal = require('./gcal');
-var mappings = require('./gcal-mappings');
+var gcal = require('./lib/gcal');
+var mappings = require('./lib/gcal-mappings');
 var grpc = require('grpc');
 var protocol = grpc.load(PROTO_PATH).snoozer;
 

@@ -14,8 +14,14 @@ message AuthUrl {
   string url = 1;
 }
 
+message CalDate {
+}
+
 message Event {
+  string id = 0;
   string name = 1;
+  optional CalDate start = 2;
+  optional CalDate end = 3;
 }
 
 message Events {

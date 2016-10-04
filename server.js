@@ -19,7 +19,7 @@ var methods = {
     callback(null, {message: 'Hello ' + call.request.name});
   }),
   authToGoogleCalendar: wrapMethod(function authToGoogleCalendar(call, callback) {
-    callback(null, { url: 'http://localhost' });    
+    callback(null, { url: 'http://localhost' }); // TODO
   }),
   listEvents: wrapMethod(function listEvents(call, callback) {
     gcal.listEvents(globalAuth, function(err, events) {
@@ -47,6 +47,7 @@ gcal.init(function(err, auth) {
     console.log('Error loading client secret file: ' + err);
   } else {
     globalAuth = auth;
+    console.log('AUTH:', auth);
     startSever();
   }
 });

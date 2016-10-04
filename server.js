@@ -3,7 +3,7 @@ var HOST = '0.0.0.0:50051';
 
 var gcal = require('./gcal');
 var grpc = require('grpc');
-var hello_proto = grpc.load(PROTO_PATH).helloworld;
+var protocol = grpc.load(PROTO_PATH).snoozer;
 
 var globalAuth;
 
@@ -35,7 +35,7 @@ var methods = {
 function startSever() {
   console.log('start RPC server...');
   var server = new grpc.Server();
-  server.addProtoService(hello_proto.Greeter.service, methods);
+  server.addProtoService(protocol.Snoozer.service, methods);
   server.bind(HOST, grpc.ServerCredentials.createInsecure());
   server.start();
   console.log('server running on', HOST);

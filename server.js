@@ -1,6 +1,7 @@
 var PROTO_PATH = __dirname + '/snoozer.proto';
 var HOST = '0.0.0.0:50051';
 
+var moment = require('moment');
 var gcal = require('./lib/gcal');
 var mappings = require('./lib/gcal-mappings');
 var grpc = require('grpc');
@@ -33,9 +34,10 @@ var methods = {
   swipeEvent: wrapMethod(function swipeEvent(call, callback) {
     gcal.getEvent(globalAuth, call.request.eventId, function(err, initialEvent) {
       if (err) console.error(err);
-      var finalEvent = Object.assign(mappings.eventFromGcal(initialEvent), {
-        start: '2016-10-06T20:00:00+02:00', // TODO: really find a free slot and put it here
-        end: '2016-10-06T23:00:00+02:00',
+      var translatedEvent = mappings.eventFromGcal(initialEvent);
+      var finalEvent = Object.assign(translatedEvent, {
+        start: moment(translatedEvent.start).add(1, 'day').toISOString(),
+        end: moment(translatedEvent.end).add(1, 'day').toISOString(),
       });
       // TODO: update calendar event
       callback(err, { event: finalEvent });

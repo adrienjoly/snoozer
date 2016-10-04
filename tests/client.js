@@ -1,4 +1,4 @@
-var PROTO_PATH = __dirname + '/snoozer.proto';
+var PROTO_PATH = __dirname + '/../snoozer.proto';
 var HOST = 'localhost:50051'; // or something like '0.tcp.ngrok.io:17802'
 
 var grpc = require('grpc');

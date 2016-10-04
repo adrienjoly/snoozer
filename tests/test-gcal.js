@@ -1,5 +1,5 @@
-var gcal = require('./lib/gcal');
-var mappings = require('./lib/gcal-mappings');
+var gcal = require('../lib/gcal');
+var mappings = require('../lib/gcal-mappings');
 
 gcal.init(function(err, auth) {
   if (err) {

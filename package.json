@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "scripts": {
     "start": "node server.js",
-    "client": "node client.js",
-    "test": "node test-gcal.js"
+    "client": "node tests/client.js",
+    "test": "node tests/test-gcal.js"
   },
   "dependencies": {
     "async": "^1.5.2",

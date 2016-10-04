@@ -4,11 +4,17 @@ var HOST = '0.0.0.0:50051';
 var grpc = require('grpc');
 var hello_proto = grpc.load(PROTO_PATH).helloworld;
 
+function wrapMethod(fct){
+  return function(call, callback) {
+    console.log('received call to', fct.name, ':', call.request);
+    return fct.apply(this, arguments);
+  };
+}
+
 var methods = {
-  sayHello: function (call, callback) {
-    console.log('received call to sayHello', call.request);
+  sayHello: wrapMethod(function sayHello (call, callback) {
     callback(null, {message: 'Hello ' + call.request.name});
-  }
+  }),
 };
 
 // Starts an RPC server that receives requests for the Greeter service

@@ -34,8 +34,8 @@ var methods = {
     gcal.getEvent(globalAuth, call.request.eventId, function(err, initialEvent) {
       if (err) console.error(err);
       var finalEvent = Object.assign(mappings.eventFromGcal(initialEvent), {
-        start: '2016-10-05T20:00:00+02:00', // TODO: really find a free slot and put it here
-        end: '2016-10-05T23:00:00+02:00',
+        start: '2016-10-06T20:00:00+02:00', // TODO: really find a free slot and put it here
+        end: '2016-10-06T23:00:00+02:00',
       });
       // TODO: update calendar event
       callback(err, { event: finalEvent });

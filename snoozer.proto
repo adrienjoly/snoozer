@@ -11,14 +11,14 @@ message Null {
 }
 
 message AuthUrl {
-  required string url = 1;
+  string url = 1;
 }
 
 message Event {
-  required string id = 1;
-  required string name = 2;
-  required string start = 3;
-  required string end = 4;
+  string id = 1;
+  string name = 2;
+  string start = 3;
+  string end = 4;
   bool allDay = 5;
 }
 

@@ -8,7 +8,7 @@ exports.init = function(callback) {
   console.log('init google calendar...');
   gcal.init(function(err, auth) {
     if (err) {
-      console.log('Error loading client secret file: ' + err);
+      console.error('Error:', err);
     } else {
       globalAuth = auth;
       //console.log('AUTH:', auth);

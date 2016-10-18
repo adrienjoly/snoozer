@@ -3,7 +3,7 @@ var mappings = require('../lib/gcal-mappings');
 
 gcal.init(function(err, auth) {
   if (err) {
-    console.log('Error loading client secret file: ' + err);
+    console.error('Error: ', err);
   } else {
     gcal.listEvents(auth, function(err, events) {
       console.log(err || ('displaying ' + events.length + ' events:'));

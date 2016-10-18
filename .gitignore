@@ -1,3 +1,4 @@
 node_modules
-client_secret.json
 samples
+.env
+user_token.json

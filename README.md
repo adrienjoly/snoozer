@@ -18,7 +18,12 @@ We crafted this in one day. You can read our story [here](https://www.getrevue.c
 
 ## Setup
 
-Don't forget to provide the credentials for Google Calendar API in `client_secret.json`, after creating your app and web client auth on Google's Developer Console.   
+Before running, don't forget to:
+
+1. create an app and web client auth on Google's Developer Console;   
+2. and set the corresponding environment variables: `GCAL_CLIENT_ID`, `GCAL_CLIENT_SECRET` and `GCAL_REDIRECT_URL`
+
+Then, you can type the following commands to start the server:
 
 ```sh
 $ npm install

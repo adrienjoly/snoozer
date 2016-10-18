@@ -10,15 +10,24 @@
   <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
 
   <div id="snoozer-web-client">
-    <ol>
-      <li v-for="item in orderedEvents" v-bind:id=item.id>
-        <p class="event-name">{{ item.name }}</p>
-        <p class="event-date">
-          {{ item.date }}
-          <button v-on:click="snooze">Snooze</button>
-        </p>
-      </li>
-    </ol>
+    <div v-if="!sesId">
+      <button v-on:click="login">Click here to give permission</button>
+      <p>Then enter your code here:
+        <input id="authcode">
+        <button v-on:click="submitCode">OK</button>
+      </p>
+    </div>
+    <div v-if="sesId">
+      <ol>
+        <li v-for="item in orderedEvents" v-bind:id=item.id>
+          <p class="event-name">{{ item.name }}</p>
+          <p class="event-date">
+            {{ item.date }}
+            <button v-on:click="snooze">Snooze</button>
+          </p>
+        </li>
+      </ol>
+    </div>
   </div>
 
   <script src="index.js"></script>

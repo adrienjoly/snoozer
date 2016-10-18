@@ -18,11 +18,15 @@ exports.init = function(callback) {
 }
 
 exports.authToGoogleCalendar = function authToGoogleCalendar(call, callback) {
-  callback(null, { url: 'http://localhost' }); // TODO
+  callback(null, { url: gcal.generateAuthUrl() });
+};
+
+exports.getSessionFromCode = function getSessioFromCode(call, callback) {
+  gcal.getSessionFromCode(call.request.code, callback);
 };
 
 exports.listEvents = function listEvents(call, callback) {
-  gcal.listEvents(globalAuth, function(err, events) {
+  gcal.listEvents(call.request.sesId, function(err, events) {
     if (err) {
       console.error(err);
       callback(err);
@@ -35,7 +39,7 @@ exports.listEvents = function listEvents(call, callback) {
 };
 
 exports.swipeEvent = function swipeEvent(call, callback) {
-  gcal.getEvent(globalAuth, call.request.eventId, function(err, initialEvent) {
+  gcal.getEvent(call.request.sesId, call.request.eventId, function(err, initialEvent) {
     if (err) {
       console.error(err);
       callback(err);

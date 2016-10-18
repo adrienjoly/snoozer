@@ -12,9 +12,27 @@ const displayError = (response) => {
   alert('Error: ' + JSON.stringify(response));
 };
 
+function login() {
+  console.log('login...');
+  var w = window.open();
+  this.$http.get(URL_PREFIX + '/authToGoogleCalendar').then((response) => {
+    w.location.href = response.body.url;
+  }, displayError);
+}
+
+function submitCode() {
+  var code = document.getElementById('authcode').value; 
+  console.log('submitting auth code...', code);
+  this.$http.get(URL_PREFIX + '/getSessionFromCode?code=' + encodeURIComponent(code)).then((response) => {
+    console.log('=>', response.body);
+    this.sesId = response.body;
+    refresh.call(this);
+  }, displayError);
+}
+
 function refresh() {
   console.log('loading events...');
-  this.$http.get(URL_PREFIX + '/listEvents').then((response) => {
+  this.$http.get(URL_PREFIX + '/listEvents?sesId=' + this.sesId).then((response) => {
     this.events = response.body.events;
   }, displayError);
 }
@@ -29,19 +47,15 @@ function updateEventById(eventId, event) {
 
 function snoozeEvent(eventId) {
   console.log('snoozing', eventId);
-  this.$http.get(URL_PREFIX + '/swipeEvent?eventId=' + eventId).then((response) => {
+  this.$http.get(URL_PREFIX + '/swipeEvent?sesId=' + this.sesId + '&eventId=' + eventId).then((response) => {
     updateEventById.call(this, eventId, response.body.event);
-  }, (response) => {
-    alert('Error: ' + JSON.stringify(response));
-  });
+  }, displayError);
 }
 
 new Vue({
   el: '#snoozer-web-client',
-  created: function() {
-    refresh.call(this);
-  },
   data: {
+    sesId: null,
     events: [ { name: '(loading...)' } ]
   },
   computed: {
@@ -52,6 +66,8 @@ new Vue({
     }
   },
   methods: {
+    login: login,
+    submitCode: submitCode,
     snooze: function(evt) {
       snoozeEvent.call(this, evt.srcElement.parentElement.parentElement.id);
     }

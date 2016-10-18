@@ -20,17 +20,19 @@ Object.keys(serverMethods).forEach(function(name){
     var call = {
       request: req.query,
     };
+    console.log('REQUEST TO', name, req.query);
     serverMethods[name](call, function(err, data) {
       res.json(err || data);
     });
   });
 });
 
-function startSever() {
+function startServer() {
   console.log('start HTTP server...');  
   app.listen(PORT, function () {
     console.log('HTTP server running on', PORT);
   });
 }
 
-serverMethods.init(startSever);
+//serverMethods.init(startServer);
+startServer();

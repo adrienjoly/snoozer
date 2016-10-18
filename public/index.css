@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial;
+}
+
+ol {
+  list-style: none;
+  padding: 10px;
+}
+
+li {
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.event-name {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.event-date {
+  font-size: 10px;
+  color: #444;
+}

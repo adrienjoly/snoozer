@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Snoozer Web Client</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
 
@@ -10,35 +11,17 @@
 
   <div id="snoozer-web-client">
     <ol>
-      <li v-for="item in events">
-        {{ item.name }}
-        <button v-on:click="snooze">Snooze</button>
+      <li v-for="item in orderedEvents" v-bind:id=item.id>
+        <p class="event-name">{{ item.name }}</p>
+        <p class="event-date">
+          {{ item.date }}
+          <button v-on:click="snooze">Snooze</button>
+        </p>
       </li>
     </ol>
   </div>
 
-  <script>
-    var URL_PREFIX = 'http://localhost:3000';
-
-    new Vue({
-      el: '#snoozer-web-client',
-      created: function() {
-        this.$http.get(URL_PREFIX + '/listEvents').then((response) => {
-          this.events = response.body.events;
-        }, (response) => {
-          alert('Error: ' + JSON.stringify(response));
-        });
-      },
-      data: {
-        events: [ { name: '(loading...)' } ]
-      },
-      methods: {
-        snooze: function() {
-          console.log('snooze', this, arguments);
-        }
-      }
-    })
-  </script>
+  <script src="index.js"></script>
 
 </body>
 </html>

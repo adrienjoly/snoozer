@@ -2,27 +2,14 @@ var moment = require('moment');
 var gcal = require('./lib/gcal');
 var mappings = require('./lib/gcal-mappings');
 
-var globalAuth;
-
-exports.init = function(callback) {
-  console.log('init google calendar...');
-  gcal.init(function(err, auth) {
-    if (err) {
-      console.error('Error:', err);
-    } else {
-      globalAuth = auth;
-      //console.log('AUTH:', auth);
-      callback();
-    }
-  });
-}
-
 exports.authToGoogleCalendar = function authToGoogleCalendar(call, callback) {
   callback(null, { url: gcal.generateAuthUrl() });
 };
 
 exports.getSessionFromCode = function getSessioFromCode(call, callback) {
-  gcal.getSessionFromCode(call.request.code, callback);
+  gcal.getSessionFromCode(call.request.code, function(err, sesId) {
+    callback(err, { sesId: sesId });
+  });
 };
 
 exports.listEvents = function listEvents(call, callback) {

@@ -24,8 +24,8 @@ function submitCode() {
   var code = document.getElementById('authcode').value; 
   console.log('submitting auth code...', code);
   this.$http.get(URL_PREFIX + '/getSessionFromCode?code=' + encodeURIComponent(code)).then((response) => {
-    console.log('=>', response.body);
-    this.sesId = response.body;
+    console.log('=>', response.body.sesId);
+    this.sesId = response.body.sesId;
     refresh.call(this);
   }, displayError);
 }

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Snoozer Web Client</title>
+</head>
 <body>
 
   <script src="https://unpkg.com/vue@next/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
 
-  <div id="app-4">
+  <div id="snoozer-web-client">
     <ol>
-      <li v-for="todo in todos">
-        {{ todo.text }}
+      <li v-for="item in events">
+        {{ item.name }}
         <button v-on:click="snooze">Snooze</button>
       </li>
     </ol>
@@ -18,20 +21,16 @@
     var URL_PREFIX = 'http://localhost:3000';
 
     new Vue({
-      el: '#app-4',
+      el: '#snoozer-web-client',
       created: function() {
         this.$http.get(URL_PREFIX + '/listEvents').then((response) => {
-          this.todos = response.body.events.map((evt) => ({ text: evt.name }));
+          this.events = response.body.events;
         }, (response) => {
           alert('Error: ' + JSON.stringify(response));
         });
       },
       data: {
-        todos: [
-          { text: 'Learn JavaScript' },
-          { text: 'Learn Vue' },
-          { text: 'Build something awesome' }
-        ]
+        events: [ { name: '(loading...)' } ]
       },
       methods: {
         snooze: function() {

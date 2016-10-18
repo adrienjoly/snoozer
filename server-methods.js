@@ -23,7 +23,11 @@ exports.authToGoogleCalendar = function authToGoogleCalendar(call, callback) {
 
 exports.listEvents = function listEvents(call, callback) {
   gcal.listEvents(globalAuth, function(err, events) {
-    if (err) console.error(err);
+    if (err) {
+      console.error(err);
+      callback(err);
+      return
+    }
     var translated = events.map(mappings.eventFromGcal);
     //console.log('=> events:', translated);
     callback(err, { events: translated });    
@@ -32,7 +36,11 @@ exports.listEvents = function listEvents(call, callback) {
 
 exports.swipeEvent = function swipeEvent(call, callback) {
   gcal.getEvent(globalAuth, call.request.eventId, function(err, initialEvent) {
-    if (err) console.error(err);
+    if (err) {
+      console.error(err);
+      callback(err);
+      return
+    }
     var translatedEvent = mappings.eventFromGcal(initialEvent);
     var finalEvent = Object.assign(translatedEvent, {
       start: moment(translatedEvent.start).add(1, 'day').toISOString(),

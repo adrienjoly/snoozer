@@ -34,5 +34,4 @@ function startServer() {
   });
 }
 
-//serverMethods.init(startServer);
 startServer();

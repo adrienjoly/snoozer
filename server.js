@@ -12,13 +12,14 @@ function wrapMethod(fct){
   };
 }
 
-var methods = {
-  authToGoogleCalendar: wrapMethod(serverMethods.authToGoogleCalendar),
-  listEvents: wrapMethod(serverMethods.listEvents),
-  swipeEvent: wrapMethod(serverMethods.swipeEvent),
-};
+var methods = {};
 
-function startSever() {
+Object.keys(serverMethods).forEach(function(name){
+  console.log(' - /' + name);
+  methods[name] = wrapMethod(serverMethods[name]);
+});
+
+function startServer() {
   console.log('start RPC server...');
   var server = new grpc.Server();
   server.addProtoService(protocol.Snoozer.service, methods);
@@ -27,4 +28,4 @@ function startSever() {
   console.log('server running on', HOST);
 }
 
-serverMethods.init(startSever);
+startServer();

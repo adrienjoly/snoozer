@@ -18,14 +18,22 @@ We crafted this in one day. You can read our story [here](https://www.getrevue.c
 
 ## Setup
 
+Don't forget to provide the credentials for Google Calendar API in `client_secret.json`, after creating your app and web client auth on Google's Developer Console.   
+
 ```sh
 $ npm install
 $ npm start
 ```
 
+Instead of starting the gRPC server, you can use the HTTP/REST server by running:
+
+```sh
+$ node run server-http.js
+``` 
+
 ## Run tests
 
 ```sh
-$ npm test        # => tests the google calendar API
-$ npm run client  # => tests the snoozer API
+$ npm test        # => tests the Google Calendar API
+$ npm run client  # => tests the Snoozer's gRPC API
 ```

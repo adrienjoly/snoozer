@@ -14,7 +14,11 @@ ol {
 
 li {
   border: 1px solid #ccc;
-  padding: 5px;
+}
+
+.event-entry {
+  box-sizing: border-box;
+  padding: 10px;
 }
 
 .event-name {
@@ -25,4 +29,10 @@ li {
 .event-date {
   font-size: 10px;
   color: #444;
+}
+
+.event-snooze {
+  background-color: #ef6c00;
+  line-height: 50px;
+  width: 100%;
 }

@@ -20,16 +20,16 @@
     </div>
     <div v-if="sesId">
       <ol>
-        <li v-for="item in orderedEvents" v-bind:id=item.id>
+        <li v-for="item in orderedEvents" v-bind:id=item.id v-bind:uuid=item.uuid>
           <div class="snoozeable-module__wrapper">
-            <div class="snoozeable-module__slide">
+            <div class="snoozeable-module__slide event-entry">
               <p class="event-name">{{ item.name }}</p>
               <p class="event-date">
                 {{ item.date }}
-                <button v-on:click="snooze">Snooze</button>
+                <!--<button v-on:click="snooze">Swipe to Snooze</button>-->
               </p>
             </div>
-            <div class="snoozeable-module__slide snooze">SNOOZE</div>
+            <div class="snoozeable-module__slide event-snooze">SNOOZE</div>
           </div>
         </li>
       </ol>

@@ -1,4 +1,7 @@
+var nextUuid = 0;
+
 const appendRenderedDate = (evt) => Object.assign(evt, {
+  uuid: nextUuid++,
   date: new Date(evt.start).toLocaleString('en')
 });
 
@@ -13,13 +16,17 @@ const displayError = (response) => {
 function updated() {
   console.log('updated');
   var itemsElement = document.getElementsByTagName('ol')[0];
+  var _this = this;
   Array.prototype.forEach.call(itemsElement.children, function(item, i) {
-    SnoozeSwiper(item, function onSnooze() {
+    if (item.classList.contains('snoozeable')) return;
+    console.log('making item', i, 'snoozeable');
+    item.classList.add('snoozeable');
+    SnoozeSwiper(item, () => {
       console.log('snoozed!', item);
-      item.classList.add('collapsed');
-      setTimeout(function() {
-        itemsElement.removeChild(item);
-        // TODO: update Vue's data instead of messing with DOM
+      item.classList.add('collapsed'); // TODO: make animation work
+      setTimeout(() => {
+        itemsElement.removeChild(item); // otherwise, the "snooze" stays on screen
+        _this.events = _this.events.filter((e) => e.uuid !== item.getAttribute('uuid'));
       }, 500);
     });
   });

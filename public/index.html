@@ -3,6 +3,7 @@
 <head>
   <title>Snoozer Web Client</title>
   <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" type="text/css" href="snoozeable-element/snoozeable.css">
 </head>
 <body>
 
@@ -20,17 +21,24 @@
     <div v-if="sesId">
       <ol>
         <li v-for="item in orderedEvents" v-bind:id=item.id>
-          <p class="event-name">{{ item.name }}</p>
-          <p class="event-date">
-            {{ item.date }}
-            <button v-on:click="snooze">Snooze</button>
-          </p>
+          <div class="snoozeable-module__wrapper">
+            <div class="snoozeable-module__slide">
+              <p class="event-name">{{ item.name }}</p>
+              <p class="event-date">
+                {{ item.date }}
+                <button v-on:click="snooze">Snooze</button>
+              </p>
+            </div>
+            <div class="snoozeable-module__slide snooze">SNOOZE</div>
+          </div>
         </li>
       </ol>
     </div>
   </div>
 
-  <script src="client-http.js"></script>
+  <script src="snoozeable-element/snoozeable.js"></script>
+  <!--<script src="client-http.js"></script>-->
+  <script src="client-fake.js"></script>
   <script src="index.js"></script>
 
 </body>

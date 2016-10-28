@@ -10,6 +10,21 @@ const displayError = (response) => {
   alert('Error: ' + JSON.stringify(response));
 };
 
+function updated() {
+  console.log('updated');
+  var itemsElement = document.getElementsByTagName('ol')[0];
+  Array.prototype.forEach.call(itemsElement.children, function(item, i) {
+    SnoozeSwiper(item, function onSnooze() {
+      console.log('snoozed!', item);
+      item.classList.add('collapsed');
+      setTimeout(function() {
+        itemsElement.removeChild(item);
+        // TODO: update Vue's data instead of messing with DOM
+      }, 500);
+    });
+  });
+}
+
 new Vue({
   el: '#snoozer-web-client',
   data: {
@@ -23,6 +38,7 @@ new Vue({
         .map(appendRenderedDate)
     }
   },
+  updated: updated,
   methods: {
     login: login,
     submitCode: submitCode,

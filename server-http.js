@@ -6,6 +6,7 @@ var serverMethods = require('./server-methods');
 var app = express();
 
 app.use(express.static('public'));
+app.use(express.static('node_modules'));
 
 function wrapMethod(fct){
   return function(call, callback) {

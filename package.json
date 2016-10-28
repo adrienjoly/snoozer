@@ -17,6 +17,7 @@
     "lodash": "^4.6.1",
     "minimist": "^1.2.0",
     "moment": "^2.15.1",
+    "snoozeable-element": "^1.0.0",
     "uuid": "^2.0.3"
   }
 }

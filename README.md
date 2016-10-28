@@ -33,7 +33,8 @@ $ npm start
 Instead of starting the gRPC server, you can use the HTTP/REST server by running:
 
 ```sh
-$ node run server-http.js
+$ node server-http.js
+$ open http://localhost:3000
 ``` 
 
 ## Run tests

@@ -4,6 +4,7 @@
   "scripts": {
     "start": "source .env; node server.js",
     "start-http": "source .env; node server-http.js",
+    "start-docs": "cd docs && python -m SimpleHTTPServer 3000",
     "client": "node tests/client.js",
     "test": "node tests/test-gcal.js"
   },

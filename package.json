@@ -2,8 +2,8 @@
   "name": "snoozer",
   "version": "0.1.0",
   "scripts": {
-    "start": "node server.js",
-    "start-http": "node server-http.js",
+    "start": "source .env; node server.js",
+    "start-http": "source .env; node server-http.js",
     "client": "node tests/client.js",
     "test": "node tests/test-gcal.js"
   },

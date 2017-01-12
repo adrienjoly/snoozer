@@ -1,6 +1,7 @@
 // Google API credentials, cf https://console.developers.google.com
 var CLIENT_ID = '607551437730-mikge9rtaacql2b3mb793v8mai34ebg2.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
+var CALENDAR_ID = 'sbec6ilfl2hbie0k8qi0lhjuag@group.calendar.google.com';
 
 // API Helpers (cf https://developers.google.com/apis-explorer/#s/calendar/v3/)
 
@@ -13,7 +14,7 @@ function getCalendars(params, callback) {
 }
 
 // fetch the next ten events in the authorized user's calendar.
-function getUpcomingEvents(params, callback) {
+function getEvents(params, callback) {
   gapi.client.calendar.events.list(Object.assign({
     'calendarId': 'primary',
     'timeMin': (new Date()).toISOString(),
@@ -22,6 +23,19 @@ function getUpcomingEvents(params, callback) {
     'maxResults': 10,
     'orderBy': 'startTime'
   }, params)).execute(callback);
+}
+
+// Date Helpers
+
+function getMondayMorning(d) {
+  d = new Date(d);
+  var day = d.getDay();
+  d.setDate(d.getDate() - day + (day == 0 ? -6 : 1)); // adjust when day is sunday
+  d.setHours(5); // 5am
+  d.setMinutes(0);
+  d.setSeconds(0);
+  d.setMilliseconds(0);
+  return new Date(d);
 }
 
 // UI Helpers
@@ -34,14 +48,23 @@ function appendPre(message) {
 }
 
 // Print the next ten events in the authorized user's calendar.
-function printUpcomingEvents() {
+function printWeekEvents() {
+  /*
   getCalendars({}, function(resp) {
     [ 'Calendars:' ].concat((resp.items || []).map(function(cal) {
       return cal.summary;
     })).forEach(appendPre);
   });
-  getUpcomingEvents({'calendarId': 'primary'}, function(resp) {
-    [ 'Upcoming events:' ].concat((resp.items || []).map(function(event) {
+  */
+  var monday = getMondayMorning(new Date());
+  appendPre('monday: ' + monday);
+  var params = {
+    calendarId: CALENDAR_ID,
+    timeMin: monday.toISOString(),
+    maxResults: 100,
+  };
+  getEvents(params, function(resp) {
+    [ 'Week events:' ].concat((resp.items || []).map(function(event) {
       return event.summary + ' (' + (event.start.dateTime || event.start.date) + ')';
     })).forEach(appendPre);
   });
@@ -55,7 +78,7 @@ function handleAuthResult(authResult) {
   if (authResult && !authResult.error) {
     // Hide auth UI, then load client library.
     authorizeDiv.style.display = 'none';
-    gapi.client.load('calendar', 'v3', printUpcomingEvents);
+    gapi.client.load('calendar', 'v3', printWeekEvents);
   } else {
     // Show auth UI (authorize button).
     authorizeDiv.style.display = 'inline';

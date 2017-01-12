@@ -3,6 +3,12 @@ var CLIENT_ID = '607551437730-mikge9rtaacql2b3mb793v8mai34ebg2.apps.googleuserco
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
 var CALENDAR_ID = 'sbec6ilfl2hbie0k8qi0lhjuag@group.calendar.google.com';
 
+// Force HTTPS, except on localhost
+
+if (window.location.href.match(/^http\:\/\/(?!localhost).*$/)) {
+  window.location.href = window.location.href.replace('http:', 'https:');
+}
+
 // API Helpers (cf https://developers.google.com/apis-explorer/#s/calendar/v3/)
 
 // fetch the next ten events in the authorized user's calendar.

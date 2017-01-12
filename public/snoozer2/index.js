@@ -57,16 +57,32 @@ function printWeekEvents() {
   });
   */
   var monday = getMondayMorning(new Date());
-  appendPre('monday: ' + monday);
+  var nextMonday = new Date(monday.getTime() + 7 * 24 * 60 * 60 * 1000);
+  appendPre('Week: ' + monday + ' -> ' + nextMonday);
+  appendPre('');
   var params = {
     calendarId: CALENDAR_ID,
     timeMin: monday.toISOString(),
+    timeMax: nextMonday.toISOString(),
     maxResults: 100,
   };
   getEvents(params, function(resp) {
+    var hoursPerProject = {};
     [ 'Week events:' ].concat((resp.items || []).map(function(event) {
-      return event.summary + ' (' + (event.start.dateTime || event.start.date) + ')';
+      var startDate = new Date(event.start.dateTime || event.start.date);
+      var endDate = new Date(event.end.dateTime || event.end.date);
+      var duration = new Date(endDate.getTime() - startDate.getTime());
+      var hours = duration.getUTCHours() + duration.getUTCMinutes() / 60;
+      var proj = event.summary.split(':')[0];
+      hoursPerProject[proj] = (hoursPerProject[proj] || 0) + hours;
+      return event.summary + ' (' + hours + ')';
     })).forEach(appendPre);
+
+    appendPre('');
+    appendPre('Hours per project:');
+    for (var proj in hoursPerProject) {
+      appendPre(proj + ' : ' + hoursPerProject[proj] + ' hours');
+    }
   });
 }
 

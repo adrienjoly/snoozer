@@ -1,3 +1,4 @@
+var diff = require('diff');
 var Scheduler = require('./Scheduler');
 
 // CONSTANTS
@@ -28,6 +29,8 @@ const prefixTitle = (prefix) => {
     title: '[' + prefix + i + '] ' + t.title
   });
 }
+
+const getId = (schedItem) => schedItem.title.match(/\[(.*)\] .*/).pop();
 
 // USER PREFERENCES
 
@@ -67,13 +70,19 @@ var events = [
 console.log('\n Sample events:\n');
 printSchedule(events);
 
+var taskArrays = [];
+var schedArrays = [];
+
 for (var i = tasks.length - 1; i >= 0; --i) {
 
   console.log('\n Sample tasks:\n');
   printSchedule(tasks);
+  taskArrays.push(tasks.map(getId));
 
   console.log('\n Resulting schedule:\n');
-  printSchedule(scheduler.combineEventsAndTasks(events, tasks, { log: false }));
+  sched = scheduler.combineEventsAndTasks(events, tasks, { log: false });
+  printSchedule(sched);
+  schedArrays.push(sched.map(getId));
 
   if (i > 0) {
     console.log('\n Moving last task up!\n');
@@ -82,3 +91,9 @@ for (var i = tasks.length - 1; i >= 0; --i) {
   }
 }
 
+console.log('\n Diffs of tasks and schedule, at each step:\n');
+
+taskArrays.slice(0, -1).forEach(function(tasks, i) {
+  console.log(diff.diffArrays(taskArrays[i], taskArrays[i + 1]));
+  console.log(diff.diffArrays(schedArrays[i], schedArrays[i + 1]));
+});

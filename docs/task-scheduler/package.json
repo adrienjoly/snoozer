@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/adrienjoly/snoozer/issues"
   },
-  "homepage": "https://github.com/adrienjoly/snoozer#readme"
+  "homepage": "https://github.com/adrienjoly/snoozer#readme",
+  "dependencies": {
+    "diff": "^3.2.0"
+  }
 }

@@ -14,10 +14,10 @@ var DAY = 24 * HOUR;
 // CLASS
 
 function Scheduler(props) {
-  Object.assign(this, props);
-  // expected props:
-  // - dayStartTime (milliseconds from midnight)
-  // - dayStopTime (milliseconds from midnight)
+  Object.assign(this, {
+    dayStartTime: 10 * HOUR, // default: 10 am (milliseconds from midnight)
+    dayStopTime: 18 * HOUR, // default: 6 pm (milliseconds from midnight)
+  }, props);
 }
 
 Scheduler.prototype.combineEventsAndTasks = function(events, tasks, options) {

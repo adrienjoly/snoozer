@@ -2,7 +2,7 @@ today: Fri Jan 13 2017 00:00:00 GMT+0100 (CET)
 
  Sample user preferences:
 
-{ dayStartTime: 36000000, dayStopTime: 64800000 }
+Scheduler { dayStartTime: 36000000, dayStopTime: 64800000 }
 
  Sample events:
 

@@ -38,13 +38,15 @@ const prefixTitle = (prefix) => {
 // USER PREFERENCES
 
 var userPrefs = {
-  dayStartTime: 10 * HOUR, // 10 am
-  dayStopTime: 18 * HOUR, // 6 pm
+/*
+  dayStartTime: 10 * HOUR, // default: 10 am (milliseconds from midnight)
+  dayStopTime: 18 * HOUR, // default: 6 pm (milliseconds from midnight)
+*/
 };
 
 console.log('\n Sample user preferences:\n');
-console.log(userPrefs);
 var scheduler = new Scheduler(userPrefs);
+console.log(scheduler);
 
 // TEST DATA
 

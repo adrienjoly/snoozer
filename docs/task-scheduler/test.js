@@ -9,6 +9,10 @@ var DAY = 24 * HOUR;
 
 // HELPERS
 
+function renderUTCTime(date) {
+  return date ? new Date(date).toUTCString().match(/(\d+\:\d+)\:/).pop() : 'XX:XX';
+}
+
 function renderTime(date) {
   return date ? new Date(date).toString().match(/(\d+\:\d+)\:/).pop() : 'XX:XX';
 }
@@ -57,10 +61,16 @@ var userPrefs = {
 var scheduler = new Scheduler(userPrefs);
 
 TODAY = scheduler.today;
-console.log('today:', new Date(TODAY).toString());
 
 console.log('\n Sample user preferences:\n');
-console.log(scheduler);
+Object.keys(scheduler).forEach(function(key) {
+  var convert = {
+    today: (t) => new Date(t).toString(),
+    dayStartTime: renderUTCTime,
+    dayStopTime: renderUTCTime,
+  };
+  console.log(key, ':', convert[key](scheduler[key]));
+});
 
 // TEST DATA
 

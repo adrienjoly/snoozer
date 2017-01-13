@@ -2,16 +2,23 @@ var scheduler = require('./combineEventsAndTasks');
 
 // CONSTANTS
 
-var TODAY = new Date('Mon, 2 Jan 2017 00:00:00 GMT').getTime(); // TODO: really use today's date, and keep in sync between scripts
+var TODAY = (function(){ //new Date('Mon, 2 Jan 2017 00:00:00 GMT').getTime();
+  var now = new Date();
+  now.setHours(0);
+  now.setMinutes(0);
+  now.setSeconds(0);
+  now.setMilliseconds(0);
+  return now.getTime();
+})();
 var HOUR = 3600000;
 var DAY = 24 * HOUR;
 
-console.log('today:', new Date(TODAY).toUTCString());
+console.log('today:', new Date(TODAY).toString());
 
 // HELPERS
 
 function renderTime(date) {
-  return date ? new Date(date).toUTCString().match(/(\d+\:\d+)\:/).pop() : 'XX:XX';
+  return date ? new Date(date).toString().match(/(\d+\:\d+)\:/).pop() : 'XX:XX';
 }
 
 function renderSchedule(combined) {

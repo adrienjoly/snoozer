@@ -1,10 +1,17 @@
 // CONSTANTS
 
-var TODAY = new Date('Mon, 2 Jan 2017 00:00:00 GMT').getTime(); // TODO: really use today's date, and keep in sync between scripts
+var TODAY = (function(){ //new Date('Mon, 2 Jan 2017 00:00:00 GMT').getTime();
+  var now = new Date();
+  now.setHours(0);
+  now.setMinutes(0);
+  now.setSeconds(0);
+  now.setMilliseconds(0);
+  return now.getTime();
+})();
 var HOUR = 3600000;
 var DAY = 24 * HOUR;
 
-console.log('today:', new Date(TODAY).toUTCString());
+console.log('today:', new Date(TODAY).toString());
 
 // USER PREFERENCES
 
@@ -28,16 +35,16 @@ function combine(events, tasks) {
   console.log('nextTask:', nextTask);
   while (nextTask) {
     var endTimeCandidate = startTimeCandidate + nextTask.duration;
-    console.log('endTimeCandidate:', new Date(endTimeCandidate).toUTCString());
+    console.log('endTimeCandidate:', new Date(endTimeCandidate).toString());
     if (endTimeCandidate > today + DAILY_STOP_TIME) {
       console.log('=> next day!');
       today += DAY;
       startTimeCandidate = today + DAILY_START_TIME;
-      console.log('=> startTimeCandidate:', new Date(startTimeCandidate).toUTCString());
+      console.log('=> startTimeCandidate:', new Date(startTimeCandidate).toString());
       endTimeCandidate = startTimeCandidate + nextTask.duration;
-      console.log('=> endTimeCandidate:', new Date(endTimeCandidate).toUTCString());
+      console.log('=> endTimeCandidate:', new Date(endTimeCandidate).toString());
     }
-    console.log('event first?', nextEvt && new Date(nextEvt.startDate).toUTCString());
+    console.log('event first?', nextEvt && new Date(nextEvt.startDate).toString());
     if (nextEvt && endTimeCandidate > nextEvt.startDate) {
       console.log('PUSH EVENT');
       combined.push(nextEvt);

@@ -1,5 +1,5 @@
-today: Mon, 02 Jan 2017 00:00:00 GMT
-today: Mon, 02 Jan 2017 00:00:00 GMT
+today: Fri Jan 13 2017 00:00:00 GMT+0100 (CET)
+today: Fri Jan 13 2017 00:00:00 GMT+0100 (CET)
 
  Sample events:
 
@@ -16,40 +16,40 @@ XX:XX -> XX:XX : [TSK] coder feature 3 (4)
 
  Combining events and tasks...
 
-nextEvt: { startDate: 1483360200000,
-  endDate: 1483365600000,
+nextEvt: { startDate: 1484307000000,
+  endDate: 1484312400000,
   title: '[EVT] dej avec yann' }
 nextTask: { duration: 3600000, title: '[TSK] déclarer impots' }
-endTimeCandidate: Mon, 02 Jan 2017 11:00:00 GMT
-event first? Mon, 02 Jan 2017 12:30:00 GMT
+endTimeCandidate: Fri Jan 13 2017 11:00:00 GMT+0100 (CET)
+event first? Fri Jan 13 2017 12:30:00 GMT+0100 (CET)
 PUSH TASK
 nextTask: { duration: 3600000, title: '[TSK] lessive' }
-endTimeCandidate: Mon, 02 Jan 2017 12:00:00 GMT
-event first? Mon, 02 Jan 2017 12:30:00 GMT
+endTimeCandidate: Fri Jan 13 2017 12:00:00 GMT+0100 (CET)
+event first? Fri Jan 13 2017 12:30:00 GMT+0100 (CET)
 PUSH TASK
 nextTask: { duration: 7200000, title: '[TSK] coder feature 1' }
-endTimeCandidate: Mon, 02 Jan 2017 14:00:00 GMT
-event first? Mon, 02 Jan 2017 12:30:00 GMT
+endTimeCandidate: Fri Jan 13 2017 14:00:00 GMT+0100 (CET)
+event first? Fri Jan 13 2017 12:30:00 GMT+0100 (CET)
 PUSH EVENT
-nextEvt: { startDate: 1483401600000,
-  endDate: 1483405200000,
+nextEvt: { startDate: 1484348400000,
+  endDate: 1484352000000,
   title: '[EVT] film a la tv' }
-endTimeCandidate: Mon, 02 Jan 2017 16:00:00 GMT
-event first? Tue, 03 Jan 2017 00:00:00 GMT
+endTimeCandidate: Fri Jan 13 2017 16:00:00 GMT+0100 (CET)
+event first? Sat Jan 14 2017 00:00:00 GMT+0100 (CET)
 PUSH TASK
 nextTask: { duration: 10800000, title: '[TSK] coder feature 2' }
-endTimeCandidate: Mon, 02 Jan 2017 19:00:00 GMT
+endTimeCandidate: Fri Jan 13 2017 19:00:00 GMT+0100 (CET)
 => next day!
-=> startTimeCandidate: Tue, 03 Jan 2017 10:00:00 GMT
-=> endTimeCandidate: Tue, 03 Jan 2017 13:00:00 GMT
-event first? Tue, 03 Jan 2017 00:00:00 GMT
+=> startTimeCandidate: Sat Jan 14 2017 10:00:00 GMT+0100 (CET)
+=> endTimeCandidate: Sat Jan 14 2017 13:00:00 GMT+0100 (CET)
+event first? Sat Jan 14 2017 00:00:00 GMT+0100 (CET)
 PUSH EVENT
 nextEvt: undefined
-endTimeCandidate: Tue, 03 Jan 2017 13:00:00 GMT
+endTimeCandidate: Sat Jan 14 2017 13:00:00 GMT+0100 (CET)
 event first? undefined
 PUSH TASK
 nextTask: { duration: 14400000, title: '[TSK] coder feature 3' }
-endTimeCandidate: Tue, 03 Jan 2017 17:00:00 GMT
+endTimeCandidate: Sat Jan 14 2017 17:00:00 GMT+0100 (CET)
 event first? undefined
 PUSH TASK
 nextTask: undefined

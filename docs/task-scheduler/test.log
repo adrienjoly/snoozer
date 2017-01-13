@@ -30,16 +30,12 @@ XX:XX -> XX:XX : [TSK4] coder feature 3 (4)
 10:00 -> 13:00 : [TSK3] coder feature 2 (3)
 13:00 -> 17:00 : [TSK4] coder feature 3 (4)
 
- => Diffs of tasks and schedule, between this step and the next:
+ => Diff of schedule, between this step and the next:
 
-[ { count: 3, value: [ 'TSK0', 'TSK1', 'TSK2' ] },
-  { count: 1, added: true, removed: undefined, value: [ 'TSK4' ] },
-  { count: 1, value: [ 'TSK3' ] },
-  { count: 1, added: undefined, removed: true, value: [ 'TSK4' ] } ]
-[ { count: 5, value: [ 'TSK0', 'TSK1', 'EVT0', 'TSK2', 'EVT1' ] },
-  { count: 1, added: true, removed: undefined, value: [ 'TSK4' ] },
-  { count: 1, value: [ 'TSK3' ] },
-  { count: 1, added: undefined, removed: true, value: [ 'TSK4' ] } ]
+(=) TSK0, TSK1, EVT0, TSK2, EVT1
+(+) TSK4
+(=) TSK3
+(-) TSK4
 
  Sample tasks:
 
@@ -59,24 +55,13 @@ XX:XX -> XX:XX : [TSK3] coder feature 2 (3)
 10:00 -> 14:00 : [TSK4] coder feature 3 (4)
 14:00 -> 17:00 : [TSK3] coder feature 2 (3)
 
- => Diffs of tasks and schedule, between this step and the next:
+ => Diff of schedule, between this step and the next:
 
-[ { count: 2, value: [ 'TSK0', 'TSK1' ] },
-  { count: 1, added: true, removed: undefined, value: [ 'TSK4' ] },
-  { count: 1, value: [ 'TSK2' ] },
-  { count: 1, added: undefined, removed: true, value: [ 'TSK4' ] },
-  { count: 1, value: [ 'TSK3' ] } ]
-[ { count: 3, value: [ 'TSK0', 'TSK1', 'EVT0' ] },
-  { count: 2,
-    added: true,
-    removed: undefined,
-    value: [ 'TSK4', 'EVT1' ] },
-  { count: 1, value: [ 'TSK2' ] },
-  { count: 2,
-    added: undefined,
-    removed: true,
-    value: [ 'EVT1', 'TSK4' ] },
-  { count: 1, value: [ 'TSK3' ] } ]
+(=) TSK0, TSK1, EVT0
+(+) TSK4, EVT1
+(=) TSK2
+(-) EVT1, TSK4
+(=) TSK3
 
  Sample tasks:
 
@@ -96,18 +81,13 @@ XX:XX -> XX:XX : [TSK3] coder feature 2 (3)
 10:00 -> 12:00 : [TSK2] coder feature 1 (2)
 12:00 -> 15:00 : [TSK3] coder feature 2 (3)
 
- => Diffs of tasks and schedule, between this step and the next:
+ => Diff of schedule, between this step and the next:
 
-[ { count: 1, value: [ 'TSK0' ] },
-  { count: 1, added: true, removed: undefined, value: [ 'TSK4' ] },
-  { count: 1, value: [ 'TSK1' ] },
-  { count: 1, added: undefined, removed: true, value: [ 'TSK4' ] },
-  { count: 2, value: [ 'TSK2', 'TSK3' ] } ]
-[ { count: 1, value: [ 'TSK0' ] },
-  { count: 1, added: undefined, removed: true, value: [ 'TSK1' ] },
-  { count: 3, value: [ 'EVT0', 'TSK4', 'EVT1' ] },
-  { count: 1, added: true, removed: undefined, value: [ 'TSK1' ] },
-  { count: 2, value: [ 'TSK2', 'TSK3' ] } ]
+(=) TSK0
+(-) TSK1
+(=) EVT0, TSK4, EVT1
+(+) TSK1
+(=) TSK2, TSK3
 
  Sample tasks:
 
@@ -127,16 +107,12 @@ XX:XX -> XX:XX : [TSK3] coder feature 2 (3)
 11:00 -> 13:00 : [TSK2] coder feature 1 (2)
 13:00 -> 16:00 : [TSK3] coder feature 2 (3)
 
- => Diffs of tasks and schedule, between this step and the next:
+ => Diff of schedule, between this step and the next:
 
-[ { count: 1, added: true, removed: undefined, value: [ 'TSK4' ] },
-  { count: 1, value: [ 'TSK0' ] },
-  { count: 1, added: undefined, removed: true, value: [ 'TSK4' ] },
-  { count: 3, value: [ 'TSK1', 'TSK2', 'TSK3' ] } ]
-[ { count: 1, added: undefined, removed: true, value: [ 'TSK0' ] },
-  { count: 3, value: [ 'EVT0', 'TSK4', 'EVT1' ] },
-  { count: 1, added: true, removed: undefined, value: [ 'TSK0' ] },
-  { count: 3, value: [ 'TSK1', 'TSK2', 'TSK3' ] } ]
+(-) TSK0
+(=) EVT0, TSK4, EVT1
+(+) TSK0
+(=) TSK1, TSK2, TSK3
 
  Sample tasks:
 

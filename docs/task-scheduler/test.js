@@ -32,6 +32,18 @@ const prefixTitle = (prefix) => {
 
 const getId = (schedItem) => schedItem.title.match(/\[(.*)\] .*/).pop();
 
+function renderDiff(arr1, arr2) {
+  return diff.diffArrays(arr1, arr2).map(function(action) {
+    if (action.added) {
+      return '(+) ' + action.value.join(', ');
+    } else if (action.removed) {
+      return '(-) ' + action.value.join(', ');
+    } else {
+      return '(=) ' + action.value.join(', ');
+    }
+  }).join('\n');
+}
+
 // USER PREFERENCES
 
 var userPrefs = {
@@ -93,8 +105,8 @@ testSteps.forEach(function(step, i) {
   console.log('\n Resulting schedule:\n');
   printSchedule(step.sched);
   if (i < testSteps.length - 1) {
-    console.log('\n => Diffs of tasks and schedule, between this step and the next:\n');
-    console.log(diff.diffArrays(step.tasksIds, testSteps[i + 1].tasksIds));
-    console.log(diff.diffArrays(step.schedIds, testSteps[i + 1].schedIds));
+    console.log('\n => Diff of schedule, between this step and the next:\n');
+    //console.log(renderDiff(step.tasksIds, testSteps[i + 1].tasksIds));
+    console.log(renderDiff(step.schedIds, testSteps[i + 1].schedIds));
   }
 });

@@ -23,7 +23,10 @@ function renderSchedule(combined) {
 const printSchedule = (combined) => console.log(renderSchedule(combined).join('\n'));
 
 const prefixTitle = (prefix) => {
-  return (t) => Object.assign({}, t, { title: prefix + t.title });
+  return (t, i) => Object.assign({}, t, {
+    id: i,
+    title: '[' + prefix + i + '] ' + t.title
+  });
 }
 
 // USER PREFERENCES
@@ -52,12 +55,12 @@ var tasks = [
   { duration: 2 * HOUR, title: 'coder feature 1' },
   { duration: 3 * HOUR, title: 'coder feature 2' },
   { duration: 4 * HOUR, title: 'coder feature 3' },
-].map(prefixTitle('[TSK] '));
+].map(prefixTitle('TSK'));
 
 var events = [
   { startDate: TODAY + 12.5 * HOUR, endDate: TODAY + 14 * HOUR, title: 'dej avec yann' }, // duration = 1.5 hours
   { startDate: TODAY + 24 * HOUR, endDate: TODAY + 25 * HOUR, title: 'film a la tv' }, // minuit -> 1am le lendemain
-].map(prefixTitle('[EVT] '));
+].map(prefixTitle('EVT'));
 
 // TESTS
 

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="index.js"></script>
-    <script src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+    <title>productivity tools</title>
   </head>
   <body>
-    <div id="authorize-div" style="display: none">
-      <span>Authorize access to Google Calendar API</span>
-      <!--Button for the user to click to initiate auth sequence -->
-      <button id="authorize-button" onclick="handleAuthClick(event)">
-        Authorize
-      </button>
-    </div>
-    <pre id="output"></pre>
-    <div id="content"></div>
+    <h1>productivity tools</h1>
+    <h2>list of tools:</h2>
+    <ul>
+      <li>
+        <a href="week-project-tracker">week project tracker</a>
+        <p>
+          a calendar-based time-tracking tool that counts the number of hours you scheduled per project, assuming that your calendar events are in the form "<code>PROJECT_CODENAME: task title<code>".
+        </p>
+      </li>
+    </ul>
+    <p>source code: <a href="https://github.com/adrienjoly/snoozer/tree/master/docs">snoozer on github</a></p>
   </body>
 </html>

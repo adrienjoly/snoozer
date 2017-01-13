@@ -29,6 +29,7 @@ const prefixTitle = (prefix) => {
 // USER PREFERENCES
 
 var userPrefs = {
+  today: new Date('Mon, 2 Jan 2017 00:00:00').getTime(),
 /*
   dayStartTime: 10 * HOUR, // default: 10 am (milliseconds from midnight)
   dayStopTime: 18 * HOUR, // default: 6 pm (milliseconds from midnight)

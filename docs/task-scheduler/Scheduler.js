@@ -28,7 +28,7 @@ function makeLogger(providedLog) {
 
 function Scheduler(props) {
   Object.assign(this, {
-    today: getToday(),
+    today: getToday(), // default: today, midnight (milliseconds from midnight)
     dayStartTime: 10 * HOUR, // default: 10 am (milliseconds from midnight)
     dayStopTime: 18 * HOUR, // default: 6 pm (milliseconds from midnight)
   }, props);

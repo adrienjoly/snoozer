@@ -1,9 +1,9 @@
-today: Fri Jan 13 2017 00:00:00 GMT+0100 (CET)
+today: Mon Jan 02 2017 00:00:00 GMT+0100 (CET)
 
  Sample user preferences:
 
 Scheduler {
-  today: 1484262000000,
+  today: 1483311600000,
   dayStartTime: 36000000,
   dayStopTime: 64800000 }
 

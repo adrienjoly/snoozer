@@ -59,7 +59,7 @@ console.log('\n Sample tasks:\n');
 printSchedule(tasks);
 
 console.log('\n Combining events and tasks...\n');
-var combined = scheduler.combine(events, tasks, { log: true });
+var combined = scheduler.combine(events, tasks, { log: false });
 
 console.log('\n Resulting schedule:\n');
 printSchedule(combined);

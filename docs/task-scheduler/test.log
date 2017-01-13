@@ -16,43 +16,6 @@ XX:XX -> XX:XX : [TSK] coder feature 3 (4)
 
  Combining events and tasks...
 
-nextEvt: { startDate: 1484307000000,
-  endDate: 1484312400000,
-  title: '[EVT] dej avec yann' }
-nextTask: { duration: 3600000, title: '[TSK] déclarer impots' }
-endTimeCandidate: Fri Jan 13 2017 11:00:00 GMT+0100 (CET)
-event first? Fri Jan 13 2017 12:30:00 GMT+0100 (CET)
-PUSH TASK
-nextTask: { duration: 3600000, title: '[TSK] lessive' }
-endTimeCandidate: Fri Jan 13 2017 12:00:00 GMT+0100 (CET)
-event first? Fri Jan 13 2017 12:30:00 GMT+0100 (CET)
-PUSH TASK
-nextTask: { duration: 7200000, title: '[TSK] coder feature 1' }
-endTimeCandidate: Fri Jan 13 2017 14:00:00 GMT+0100 (CET)
-event first? Fri Jan 13 2017 12:30:00 GMT+0100 (CET)
-PUSH EVENT
-nextEvt: { startDate: 1484348400000,
-  endDate: 1484352000000,
-  title: '[EVT] film a la tv' }
-endTimeCandidate: Fri Jan 13 2017 16:00:00 GMT+0100 (CET)
-event first? Sat Jan 14 2017 00:00:00 GMT+0100 (CET)
-PUSH TASK
-nextTask: { duration: 10800000, title: '[TSK] coder feature 2' }
-endTimeCandidate: Fri Jan 13 2017 19:00:00 GMT+0100 (CET)
-=> next day!
-=> startTimeCandidate: Sat Jan 14 2017 10:00:00 GMT+0100 (CET)
-=> endTimeCandidate: Sat Jan 14 2017 13:00:00 GMT+0100 (CET)
-event first? Sat Jan 14 2017 00:00:00 GMT+0100 (CET)
-PUSH EVENT
-nextEvt: undefined
-endTimeCandidate: Sat Jan 14 2017 13:00:00 GMT+0100 (CET)
-event first? undefined
-PUSH TASK
-nextTask: { duration: 14400000, title: '[TSK] coder feature 3' }
-endTimeCandidate: Sat Jan 14 2017 17:00:00 GMT+0100 (CET)
-event first? undefined
-PUSH TASK
-nextTask: undefined
 
  Resulting schedule:
 

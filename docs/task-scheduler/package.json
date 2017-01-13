@@ -4,7 +4,7 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "test": "node test.js >test.log; cat test.log; # => diff with previous version of log using git"
+    "test": "node test.js &>test.log; cat test.log; # => diff with previous version of log using git"
   },
   "repository": {
     "type": "git",

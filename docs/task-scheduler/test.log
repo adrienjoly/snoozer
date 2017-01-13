@@ -1,0 +1,65 @@
+today: Mon, 02 Jan 2017 00:00:00 GMT
+today: Mon, 02 Jan 2017 00:00:00 GMT
+
+ Sample events:
+
+12:30 -> 14:00 : [EVT] dej avec yann (2)
+00:00 -> 01:00 : [EVT] film a la tv (2)
+
+ Sample tasks:
+
+XX:XX -> XX:XX : [TSK] déclarer impots (1)
+XX:XX -> XX:XX : [TSK] lessive (1)
+XX:XX -> XX:XX : [TSK] coder feature 1 (2)
+XX:XX -> XX:XX : [TSK] coder feature 2 (3)
+XX:XX -> XX:XX : [TSK] coder feature 3 (4)
+
+ Combining events and tasks...
+
+nextEvt: { startDate: 1483360200000,
+  endDate: 1483365600000,
+  title: '[EVT] dej avec yann' }
+nextTask: { duration: 3600000, title: '[TSK] déclarer impots' }
+endTimeCandidate: Mon, 02 Jan 2017 11:00:00 GMT
+event first? Mon, 02 Jan 2017 12:30:00 GMT
+PUSH TASK
+nextTask: { duration: 3600000, title: '[TSK] lessive' }
+endTimeCandidate: Mon, 02 Jan 2017 12:00:00 GMT
+event first? Mon, 02 Jan 2017 12:30:00 GMT
+PUSH TASK
+nextTask: { duration: 7200000, title: '[TSK] coder feature 1' }
+endTimeCandidate: Mon, 02 Jan 2017 14:00:00 GMT
+event first? Mon, 02 Jan 2017 12:30:00 GMT
+PUSH EVENT
+nextEvt: { startDate: 1483401600000,
+  endDate: 1483405200000,
+  title: '[EVT] film a la tv' }
+endTimeCandidate: Mon, 02 Jan 2017 16:00:00 GMT
+event first? Tue, 03 Jan 2017 00:00:00 GMT
+PUSH TASK
+nextTask: { duration: 10800000, title: '[TSK] coder feature 2' }
+endTimeCandidate: Mon, 02 Jan 2017 19:00:00 GMT
+=> next day!
+=> startTimeCandidate: Tue, 03 Jan 2017 10:00:00 GMT
+=> endTimeCandidate: Tue, 03 Jan 2017 13:00:00 GMT
+event first? Tue, 03 Jan 2017 00:00:00 GMT
+PUSH EVENT
+nextEvt: undefined
+endTimeCandidate: Tue, 03 Jan 2017 13:00:00 GMT
+event first? undefined
+PUSH TASK
+nextTask: { duration: 14400000, title: '[TSK] coder feature 3' }
+endTimeCandidate: Tue, 03 Jan 2017 17:00:00 GMT
+event first? undefined
+PUSH TASK
+nextTask: undefined
+
+ Resulting schedule:
+
+10:00 -> 11:00 : [TSK] déclarer impots (1)
+11:00 -> 12:00 : [TSK] lessive (1)
+12:30 -> 14:00 : [EVT] dej avec yann (2)
+14:00 -> 16:00 : [TSK] coder feature 1 (2)
+00:00 -> 01:00 : [EVT] film a la tv (2)
+10:00 -> 13:00 : [TSK] coder feature 2 (3)
+13:00 -> 17:00 : [TSK] coder feature 3 (4)

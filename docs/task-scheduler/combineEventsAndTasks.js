@@ -59,5 +59,7 @@ function combine(events, tasks) {
 }
 
 try{
-  module.exports = combine;
+  module.exports = {
+    combine: combine,
+  };
 } catch(e) {}

@@ -1,4 +1,4 @@
-var combine = require('./combineEventsAndTasks');
+var scheduler = require('./combineEventsAndTasks');
 
 // CONSTANTS
 
@@ -8,7 +8,18 @@ var DAY = 24 * HOUR;
 
 console.log('today:', new Date(TODAY).toUTCString());
 
-// TESTS
+// HELPERS
+
+function renderSchedule(combined) {
+  return combined.map(function(i) {
+    var hours = (i.duration / HOUR) || new Date(i.endDate - i.startDate).getHours();
+    return new Date(i.startDate).toUTCString() + ' : ' + i.title + ' (' + hours + ')';
+  })
+}
+
+const printSchedule = (combined) => console.log(renderSchedule(combined).join('\n'));
+
+// TEST DATA
 
 var tasks = [
   { duration: HOUR, title: 'déclarer impots' },
@@ -23,4 +34,16 @@ var events = [
   { startDate: TODAY + 24 * HOUR, endDate: TODAY + 25 * HOUR, title: 'film a la tv' }, // minuit -> 1am le lendemain
 ];
 
-console.log(combine(events, tasks).map((i) => new Date(i.startDate).toUTCString() + ' : ' + i.title));
+// TESTS
+
+console.log('\n Sample events:\n');
+printSchedule(events);
+
+console.log('\n Sample tasks:\n');
+printSchedule(tasks);
+
+console.log('\n Combining events and tasks...\n');
+var combined = scheduler.combine(events, tasks);
+
+console.log('\n Resulting schedule:\n');
+printSchedule(combined);

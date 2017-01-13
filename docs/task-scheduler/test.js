@@ -69,7 +69,7 @@ var events = [
 
 console.log('\n Sample events:\n');
 printSchedule(events);
-
+/*
 var taskArrays = [];
 var schedArrays = [];
 
@@ -92,8 +92,38 @@ for (var i = tasks.length - 1; i >= 0; --i) {
 }
 
 console.log('\n Diffs of tasks and schedule, at each step:\n');
-
 taskArrays.slice(0, -1).forEach(function(tasks, i) {
   console.log(diff.diffArrays(taskArrays[i], taskArrays[i + 1]));
   console.log(diff.diffArrays(schedArrays[i], schedArrays[i + 1]));
+});
+*/
+
+var testSteps = tasks.map(function(_dummy, i) {
+  var tasksClone = tasks.slice();
+  if (i > 0) {
+    var from = tasks.length - 1;
+    var to = tasks.length  - i - 1;
+    var task = tasksClone.splice(from, 1)[0];
+    tasksClone.splice(to, 0, task); // insert before previous task
+  }
+  var sched = scheduler.combineEventsAndTasks(events, tasksClone, { log: false });
+  return {
+    tasks: tasksClone,
+    sched: sched,
+    tasksIds: tasksClone.map(getId),
+    schedIds: sched.map(getId),
+  };
+});
+
+testSteps.forEach(function(step, i) {
+  console.log('\n Sample tasks:\n');
+  printSchedule(step.tasks);
+  console.log('\n Resulting schedule:\n');
+  printSchedule(step.sched);
+});
+
+console.log('\n Diffs of tasks and schedule, at each step:\n');
+testSteps.slice(0, -1).forEach(function(step, i) {
+  console.log(diff.diffArrays(step.tasksIds, testSteps[i + 1].tasksIds));
+  console.log(diff.diffArrays(step.schedIds, testSteps[i + 1].schedIds));
 });

@@ -14,6 +14,16 @@ function getToday() {
   return now.getTime(); // new Date('Mon, 2 Jan 2017 00:00:00 GMT').getTime();
 }
 
+function makeLogger(providedLog) {
+  var log = function(){};
+  if (providedLog === true) {
+    log = console.log;
+  } else if (typeof providedLog === 'function'){
+    log = providedLog;
+  }
+  return log;
+}
+
 // CLASS
 
 function Scheduler(props) {
@@ -28,23 +38,21 @@ Scheduler.prototype.combineEventsAndTasks = function(events, tasks, options) {
   // events and tasks must be sorted chronologically
   // events must tasks after today's daily start time
   // => plans tasks within working hours only (10am and 6pm), or overflows to next day
-  options = options || {};
   var combined = [];
-  var today = this.today;
-  var startTimeCandidate = today + this.dayStartTime;
+  // setup
+  options = options || {};
+  var log = makeLogger(options.log);
+  // clone input arrays
   var nextEvents = events.slice(); // clone array
   var nextTasks = tasks.slice(); // clone
+  // init variables (initial values)
+  var today = this.today;
+  var startTimeCandidate = today + this.dayStartTime;
   var nextEvt = nextEvents.shift();
   var nextTask = nextTasks.shift();
-  var log = function(){};
-  if (options.log === true) {
-    log = console.log;
-  } else if (typeof options.log === 'function'){
-    log = options.log;
-  }
-  log('nextEvt:', nextEvt);
-  log('nextTask:', nextTask);
   while (nextTask) {
+    log('nextEvt:', nextEvt);
+    log('nextTask:', nextTask);
     var endTimeCandidate = startTimeCandidate + nextTask.duration;
     log('endTimeCandidate:', new Date(endTimeCandidate).toString());
     if (endTimeCandidate > today + this.dayStopTime) {
@@ -61,7 +69,6 @@ Scheduler.prototype.combineEventsAndTasks = function(events, tasks, options) {
       combined.push(nextEvt);
       startTimeCandidate = Math.max(nextEvt.endDate, startTimeCandidate);
       nextEvt = nextEvents.shift();
-      log('nextEvt:', nextEvt);
     } else {
       log('PUSH TASK');
       nextTask.startDate = startTimeCandidate;
@@ -69,7 +76,6 @@ Scheduler.prototype.combineEventsAndTasks = function(events, tasks, options) {
       combined.push(nextTask);
       startTimeCandidate = startTimeCandidate + nextTask.duration;
       nextTask = nextTasks.shift();
-      log('nextTask:', nextTask);
     }
   }
   return combined.concat(nextEvents);

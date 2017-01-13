@@ -1,20 +1,24 @@
 // CONSTANTS
 
-var TODAY = (function(){ //new Date('Mon, 2 Jan 2017 00:00:00 GMT').getTime();
+var HOUR = 3600000;
+var DAY = 24 * HOUR;
+
+// HELPERS
+
+function getToday() {
   var now = new Date();
   now.setHours(0);
   now.setMinutes(0);
   now.setSeconds(0);
   now.setMilliseconds(0);
-  return now.getTime();
-})();
-var HOUR = 3600000;
-var DAY = 24 * HOUR;
+  return now.getTime(); // new Date('Mon, 2 Jan 2017 00:00:00 GMT').getTime();
+}
 
 // CLASS
 
 function Scheduler(props) {
   Object.assign(this, {
+    today: getToday(),
     dayStartTime: 10 * HOUR, // default: 10 am (milliseconds from midnight)
     dayStopTime: 18 * HOUR, // default: 6 pm (milliseconds from midnight)
   }, props);
@@ -26,7 +30,7 @@ Scheduler.prototype.combineEventsAndTasks = function(events, tasks, options) {
   // => plans tasks within working hours only (10am and 6pm), or overflows to next day
   options = options || {};
   var combined = [];
-  var today = TODAY;
+  var today = this.today;
   var startTimeCandidate = today + this.dayStartTime;
   var nextEvents = events.slice(); // clone array
   var nextTasks = tasks.slice(); // clone

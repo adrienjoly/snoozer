@@ -2,18 +2,9 @@ var Scheduler = require('./Scheduler');
 
 // CONSTANTS
 
-var TODAY = (function(){ //new Date('Mon, 2 Jan 2017 00:00:00 GMT').getTime();
-  var now = new Date();
-  now.setHours(0);
-  now.setMinutes(0);
-  now.setSeconds(0);
-  now.setMilliseconds(0);
-  return now.getTime();
-})();
+var TODAY; // will be set from scheduler, in instanciation
 var HOUR = 3600000;
 var DAY = 24 * HOUR;
-
-console.log('today:', new Date(TODAY).toString());
 
 // HELPERS
 
@@ -44,8 +35,12 @@ var userPrefs = {
 */
 };
 
-console.log('\n Sample user preferences:\n');
 var scheduler = new Scheduler(userPrefs);
+
+TODAY = scheduler.today;
+console.log('today:', new Date(TODAY).toString());
+
+console.log('\n Sample user preferences:\n');
 console.log(scheduler);
 
 // TEST DATA

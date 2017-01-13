@@ -10,6 +10,8 @@ dayStopTime : 18:00
 12:30 -> 14:00 : [EVT0] dej avec yann (2)
 00:00 -> 01:00 : [EVT1] film a la tv (2)
 
+ === TEST ITERATION #0 ===
+
  Sample tasks:
 
 XX:XX -> XX:XX : [TSK0] déclarer impots (1)
@@ -34,6 +36,8 @@ XX:XX -> XX:XX : [TSK4] coder feature 3 (4)
 (+) TSK4
 (=) TSK3
 (-) TSK4
+
+ === TEST ITERATION #1 ===
 
  Sample tasks:
 
@@ -61,6 +65,8 @@ XX:XX -> XX:XX : [TSK3] coder feature 2 (3)
 (-) EVT1, TSK4
 (=) TSK3
 
+ === TEST ITERATION #2 ===
+
  Sample tasks:
 
 XX:XX -> XX:XX : [TSK0] déclarer impots (1)
@@ -87,6 +93,8 @@ XX:XX -> XX:XX : [TSK3] coder feature 2 (3)
 (+) TSK1
 (=) TSK2, TSK3
 
+ === TEST ITERATION #3 ===
+
  Sample tasks:
 
 XX:XX -> XX:XX : [TSK0] déclarer impots (1)
@@ -111,6 +119,8 @@ XX:XX -> XX:XX : [TSK3] coder feature 2 (3)
 (=) EVT0, TSK4, EVT1
 (+) TSK0
 (=) TSK1, TSK2, TSK3
+
+ === TEST ITERATION #4 ===
 
  Sample tasks:
 

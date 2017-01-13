@@ -110,6 +110,7 @@ var testSteps = tasks.map(function(_dummy, i) {
 });
 
 testSteps.forEach(function(step, i) {
+  console.log('\n === TEST ITERATION #' + i + ' ===');
   console.log('\n Sample tasks:\n');
   printSchedule(step.tasks);
   console.log('\n Resulting schedule:\n');

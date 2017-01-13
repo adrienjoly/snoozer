@@ -1,7 +1,6 @@
 // Google API credentials, cf https://console.developers.google.com
 var CLIENT_ID = '607551437730-mikge9rtaacql2b3mb793v8mai34ebg2.apps.googleusercontent.com';
 var SCOPES = ["https://www.googleapis.com/auth/calendar.readonly"];
-var CALENDAR_ID = 'sbec6ilfl2hbie0k8qi0lhjuag@group.calendar.google.com';
 
 // Force HTTPS, except on localhost
 
@@ -53,26 +52,28 @@ function appendPre(message) {
   pre.appendChild(textContent);
 }
 
+function appendHTML(html) {
+  var p = document.createElement('p');
+  p.innerHTML = html;
+  document.getElementById('content').appendChild(p);
+}
+
 // Print the next ten events in the authorized user's calendar.
-function printWeekEvents() {
-  /*
-  getCalendars({}, function(resp) {
-    [ 'Calendars:' ].concat((resp.items || []).map(function(cal) {
-      return cal.summary;
-    })).forEach(appendPre);
-  });
-  */
+function printWeekEvents(calId) {
+  appendPre('Cal id: [' + calId + ']');
+  appendPre('');
   var monday = getMondayMorning(new Date());
   var nextMonday = new Date(monday.getTime() + 7 * 24 * 60 * 60 * 1000);
   appendPre('Week: ' + monday + ' -> ' + nextMonday);
   appendPre('');
   var params = {
-    calendarId: CALENDAR_ID,
+    calendarId: calId,
     timeMin: monday.toISOString(),
     timeMax: nextMonday.toISOString(),
     maxResults: 100,
   };
   getEvents(params, function(resp) {
+    console.log(resp);
     var hoursPerProject = {};
     [ 'Week events:' ].concat((resp.items || []).map(function(event) {
       var startDate = new Date(event.start.dateTime || event.start.date);
@@ -92,7 +93,30 @@ function printWeekEvents() {
   });
 }
 
+function printCalendars() {
+  getCalendars({}, function(resp) {
+    [ 'Calendars:' ].concat((resp.items || []).map(function(cal) {
+      return '<a href="#/calendar/' + encodeURIComponent(cal.id) + '">' + cal.summary + '</a>';
+    })).forEach(appendHTML);
+  });
+}
+
 // Main App / UI logic
+
+function applyRoute() {
+  var hash = window.location.href.split('#')[1] || '';
+  if (prevHash === hash) return;
+  prevHash = hash;
+  console.log('applyRoute, hash:', hash);
+  document.getElementById('content').innerHTML = '';
+  document.getElementById('output').innerHTML = '';
+  var calId = (/\/calendar\/(.*)/.exec(hash) || []).pop();
+  if (calId) {
+    gapi.client.load('calendar', 'v3', printWeekEvents(decodeURIComponent(calId)));
+  } else {
+    gapi.client.load('calendar', 'v3', printCalendars);
+  }
+}
 
 // Handle response from authorization server.
 function handleAuthResult(authResult) {
@@ -100,7 +124,7 @@ function handleAuthResult(authResult) {
   if (authResult && !authResult.error) {
     // Hide auth UI, then load client library.
     authorizeDiv.style.display = 'none';
-    gapi.client.load('calendar', 'v3', printWeekEvents);
+    applyRoute();
   } else {
     // Show auth UI (authorize button).
     authorizeDiv.style.display = 'inline';
@@ -125,3 +149,7 @@ function checkAuth() {
     'immediate': true
   }, handleAuthResult);
 }
+
+var prevHash = null;
+//window.onhashchange = window.onpopstate = window.history.onpushstate = window.history.replaceState = applyRoute;
+window.addEventListener('hashchange', applyRoute);

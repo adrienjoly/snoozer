@@ -1,4 +1,4 @@
-var diff = require('diff');
+var diff = require('diff'); // for ios: https://github.com/jflinter/Dwifft or https://github.com/khanlou/NSArray-LongestCommonSubsequence
 var Scheduler = require('./Scheduler');
 
 // CONSTANTS

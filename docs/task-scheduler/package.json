@@ -1,0 +1,27 @@
+{
+  "name": "task-scheduler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrienjoly/snoozer.git"
+  },
+  "keywords": [
+    "calendar",
+    "scheduling",
+    "task-management",
+    "time-management",
+    "time-tracking",
+    "productivity"
+  ],
+  "author": "Adrien Joly <adrien.joly@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adrienjoly/snoozer/issues"
+  },
+  "homepage": "https://github.com/adrienjoly/snoozer#readme"
+}

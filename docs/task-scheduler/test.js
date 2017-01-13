@@ -1,4 +1,4 @@
-var scheduler = require('./combineEventsAndTasks');
+var Scheduler = require('./Scheduler');
 
 // CONSTANTS
 
@@ -35,6 +35,17 @@ const prefixTitle = (prefix) => {
   return (t) => Object.assign({}, t, { title: prefix + t.title });
 }
 
+// USER PREFERENCES
+
+var userPrefs = {
+  dayStartTime: 10 * HOUR, // 10 am
+  dayStopTime: 18 * HOUR, // 6 pm
+};
+
+console.log('\n Sample user preferences:\n');
+console.log(userPrefs);
+var scheduler = new Scheduler(userPrefs);
+
 // TEST DATA
 
 var tasks = [
@@ -59,7 +70,7 @@ console.log('\n Sample tasks:\n');
 printSchedule(tasks);
 
 console.log('\n Combining events and tasks...\n');
-var combined = scheduler.combine(events, tasks, { log: false });
+var combined = scheduler.combineEventsAndTasks(events, tasks, { log: false });
 
 console.log('\n Resulting schedule:\n');
 printSchedule(combined);

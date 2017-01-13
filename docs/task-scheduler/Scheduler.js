@@ -11,23 +11,23 @@ var TODAY = (function(){ //new Date('Mon, 2 Jan 2017 00:00:00 GMT').getTime();
 var HOUR = 3600000;
 var DAY = 24 * HOUR;
 
-console.log('today:', new Date(TODAY).toString());
+// CLASS
 
-// USER PREFERENCES
+function Scheduler(props) {
+  Object.assign(this, props);
+  // expected props:
+  // - dayStartTime (milliseconds from midnight)
+  // - dayStopTime (milliseconds from midnight)
+}
 
-var DAILY_START_TIME = 10 * HOUR; // 10 am
-var DAILY_STOP_TIME = 18 * HOUR; // 6 pm
-
-// ALGO
-
-function combine(events, tasks, options) {
+Scheduler.prototype.combineEventsAndTasks = function(events, tasks, options) {
   // events and tasks must be sorted chronologically
   // events must tasks after today's daily start time
   // => plans tasks within working hours only (10am and 6pm), or overflows to next day
   options = options || {};
   var combined = [];
   var today = TODAY;
-  var startTimeCandidate = today + DAILY_START_TIME;
+  var startTimeCandidate = today + this.dayStartTime;
   var nextEvents = events.slice(); // clone array
   var nextTasks = tasks.slice(); // clone
   var nextEvt = nextEvents.shift();
@@ -43,10 +43,10 @@ function combine(events, tasks, options) {
   while (nextTask) {
     var endTimeCandidate = startTimeCandidate + nextTask.duration;
     log('endTimeCandidate:', new Date(endTimeCandidate).toString());
-    if (endTimeCandidate > today + DAILY_STOP_TIME) {
+    if (endTimeCandidate > today + this.dayStopTime) {
       log('=> next day!');
       today += DAY;
-      startTimeCandidate = today + DAILY_START_TIME;
+      startTimeCandidate = today + this.dayStartTime;
       log('=> startTimeCandidate:', new Date(startTimeCandidate).toString());
       endTimeCandidate = startTimeCandidate + nextTask.duration;
       log('=> endTimeCandidate:', new Date(endTimeCandidate).toString());
@@ -68,12 +68,9 @@ function combine(events, tasks, options) {
       log('nextTask:', nextTask);
     }
   }
-  return combined
-    .concat(nextEvents);
+  return combined.concat(nextEvents);
 }
 
 try{
-  module.exports = {
-    combine: combine,
-  };
+  module.exports = Scheduler;
 } catch(e) {}

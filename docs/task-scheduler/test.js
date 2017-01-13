@@ -64,11 +64,18 @@ var events = [
 console.log('\n Sample events:\n');
 printSchedule(events);
 
-console.log('\n Sample tasks:\n');
-printSchedule(tasks);
+for (var i = tasks.length - 1; i >= 0; --i) {
 
-console.log('\n Combining events and tasks...\n');
-var combined = scheduler.combineEventsAndTasks(events, tasks, { log: false });
+  console.log('\n Sample tasks:\n');
+  printSchedule(tasks);
 
-console.log('\n Resulting schedule:\n');
-printSchedule(combined);
+  console.log('\n Resulting schedule:\n');
+  printSchedule(scheduler.combineEventsAndTasks(events, tasks, { log: false }));
+
+  if (i > 0) {
+    console.log('\n Moving last task up!\n');
+    var task = tasks.splice(i, 1)[0];
+    tasks.splice(i - 1, 0, task); // insert before previous task
+  }
+}
+

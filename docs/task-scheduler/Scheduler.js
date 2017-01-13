@@ -71,9 +71,10 @@ Scheduler.prototype.combineEventsAndTasks = function(events, tasks, options) {
       nextEvt = nextEvents.shift();
     } else {
       log('PUSH TASK');
-      nextTask.startDate = startTimeCandidate;
-      nextTask.endDate = endTimeCandidate;
-      combined.push(nextTask);
+      combined.push(Object.assign({}, nextTask, {
+        startDate: startTimeCandidate,
+        endDate: endTimeCandidate,
+      }));
       startTimeCandidate = startTimeCandidate + nextTask.duration;
       nextTask = nextTasks.shift();
     }

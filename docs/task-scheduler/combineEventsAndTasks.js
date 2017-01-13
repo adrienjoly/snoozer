@@ -20,10 +20,11 @@ var DAILY_STOP_TIME = 18 * HOUR; // 6 pm
 
 // ALGO
 
-function combine(events, tasks) {
+function combine(events, tasks, options) {
   // events and tasks must be sorted chronologically
   // events must tasks after today's daily start time
   // => plans tasks within working hours only (10am and 6pm), or overflows to next day
+  options = options || {};
   var combined = [];
   var today = TODAY;
   var startTimeCandidate = today + DAILY_START_TIME;
@@ -31,34 +32,40 @@ function combine(events, tasks) {
   var nextTasks = tasks.slice(); // clone
   var nextEvt = nextEvents.shift();
   var nextTask = nextTasks.shift();
-  console.log('nextEvt:', nextEvt);
-  console.log('nextTask:', nextTask);
+  var log = function(){};
+  if (options.log === true) {
+    log = console.log;
+  } else if (typeof options.log === 'function'){
+    log = options.log;
+  }
+  log('nextEvt:', nextEvt);
+  log('nextTask:', nextTask);
   while (nextTask) {
     var endTimeCandidate = startTimeCandidate + nextTask.duration;
-    console.log('endTimeCandidate:', new Date(endTimeCandidate).toString());
+    log('endTimeCandidate:', new Date(endTimeCandidate).toString());
     if (endTimeCandidate > today + DAILY_STOP_TIME) {
-      console.log('=> next day!');
+      log('=> next day!');
       today += DAY;
       startTimeCandidate = today + DAILY_START_TIME;
-      console.log('=> startTimeCandidate:', new Date(startTimeCandidate).toString());
+      log('=> startTimeCandidate:', new Date(startTimeCandidate).toString());
       endTimeCandidate = startTimeCandidate + nextTask.duration;
-      console.log('=> endTimeCandidate:', new Date(endTimeCandidate).toString());
+      log('=> endTimeCandidate:', new Date(endTimeCandidate).toString());
     }
-    console.log('event first?', nextEvt && new Date(nextEvt.startDate).toString());
+    log('event first?', nextEvt && new Date(nextEvt.startDate).toString());
     if (nextEvt && endTimeCandidate > nextEvt.startDate) {
-      console.log('PUSH EVENT');
+      log('PUSH EVENT');
       combined.push(nextEvt);
       startTimeCandidate = Math.max(nextEvt.endDate, startTimeCandidate);
       nextEvt = nextEvents.shift();
-      console.log('nextEvt:', nextEvt);
+      log('nextEvt:', nextEvt);
     } else {
-      console.log('PUSH TASK');
+      log('PUSH TASK');
       nextTask.startDate = startTimeCandidate;
       nextTask.endDate = endTimeCandidate;
       combined.push(nextTask);
       startTimeCandidate = startTimeCandidate + nextTask.duration;
       nextTask = nextTasks.shift();
-      console.log('nextTask:', nextTask);
+      log('nextTask:', nextTask);
     }
   }
   return combined

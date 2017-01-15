@@ -85,11 +85,17 @@ function printWeekEvents(calId) {
       return event.summary + ' (' + hours + ')';
     })).forEach(appendPre);
 
+    var total = 0;
+
     appendPre('');
     appendPre('Hours per project:');
     for (var proj in hoursPerProject) {
       appendPre(proj + ' : ' + hoursPerProject[proj] + ' hours');
+      total += hoursPerProject[proj];
     }
+
+    appendPre('');
+    appendPre('Total hours: ' + total);
   });
 }
 

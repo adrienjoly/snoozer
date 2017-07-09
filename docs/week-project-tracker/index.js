@@ -89,10 +89,12 @@ function printWeekEvents(calId) {
 
     appendPre('');
     appendPre('Hours per project:');
-    for (var proj in hoursPerProject) {
+    const sorted = Object.keys(hoursPerProject)
+      .sort((a, b) => hoursPerProject[b] - hoursPerProject[a])
+    sorted.forEach((proj) => {
       appendPre(proj + ' : ' + hoursPerProject[proj] + ' hours');
       total += hoursPerProject[proj];
-    }
+    })
 
     appendPre('');
     appendPre('Total hours: ' + total);
